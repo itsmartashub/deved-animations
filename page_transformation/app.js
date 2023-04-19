@@ -95,8 +95,42 @@ barba.init({
 				// gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 1, onComplete: done }) // ne vidi se, pa se pojavi 0 --> 1
 			},
 		},
+
+		// PRODUCT PAGE ANIMATION
+		{
+			name: 'product-transition',
+			sync: true, // ovim se istovremeno desava animacija leave sa handbag-a (fadeout-uje) i enter ka product-page (slidein-uje)
+
+			/* 
+			ovo from i to je valjda ova ovde definisana animacija se okine kada idemo sa from stranice (handbag) ka (to) product stranici
+
+			Ovde smo specifirali samo sta se desi kada idemo od handbag ka product page, ali nismo obrnuto, tj sta se desava ako idemo sa product pa negde, zato i ova dole leave animacija ne radi kako treba */
+			from: { namespace: ['handbag', 'product'] },
+			to: { namespace: ['product', 'handbag'] },
+
+			enter(data) {
+				const done = this.async()
+				let next = data.next.container
+
+				productEnterAnimation(next, done)
+			},
+			leave(data) {
+				const done = this.async()
+				let current = data.current.container
+
+				productLeaveAnimation(current, done)
+			},
+		},
 	],
 })
+
+function productEnterAnimation(next, done) {
+	tlEnter.fromTo(next, { y: '100%' }, { y: '0%' })
+	tlEnter.fromTo('.card', { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.1, onComplete: done })
+}
+function productLeaveAnimation(current, done) {
+	tlLeave.fromTo(current, { y: '0%' }, { y: '100%', onComplete: done })
+}
 
 // changing gradient on showcase
 function getGradient(name) {
