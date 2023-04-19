@@ -1,3 +1,48 @@
+const tLeave = gsap.timeline({
+	defaults: { duration: 0.75, ease: 'Power2.easeOut' },
+})
+const tEnter = gsap.timeline({
+	defaults: { duration: 0.75, ease: 'Power2.easeOut' },
+})
+
+//make the fns for the leave and enter animations
+const leaveAnimation = (current, done) => {
+	const product = current.querySelector('.image-container')
+	const text = current.querySelector('.showcase-text')
+	const circles = current.querySelectorAll('.circle')
+	const arrow = current.querySelector('.showcase-arrow')
+
+	return (
+		tLeave.fromTo(arrow, { opacity: 1, y: 0 }, { opacity: 0, y: 50 }),
+		tLeave.fromTo(product, { opacity: 1, y: 0 }, { opacity: 0, y: 100 }, '<'),
+		tLeave.fromTo(text, { opacity: 1, y: 0 }, { opacity: 0, y: 100, onComplete: done }, '<'),
+		tLeave.fromTo(
+			circles,
+			{ opacity: 1, y: 0 },
+			{ opacity: 0, y: -200, stagger: 0.15, ease: 'back.out(1.7)', duration: 1 },
+			'<'
+		)
+	)
+}
+const enterAnimation = (current, done) => {
+	const product = current.querySelector('.image-container')
+	const text = current.querySelector('.showcase-text')
+	const circles = current.querySelectorAll('.circle')
+	const arrow = current.querySelector('.showcase-arrow')
+
+	return (
+		tLeave.fromTo(arrow, { opacity: 0, y: 50 }, { opacity: 1, y: 0 }),
+		tLeave.fromTo(product, { opacity: 0, y: -100 }, { opacity: 1, y: 0 }, '<'),
+		tLeave.fromTo(text, { opacity: 0, y: 100 }, { opacity: 1, y: 0, onComplete: done }, '<'),
+		tLeave.fromTo(
+			circles,
+			{ opacity: 0, y: -200 },
+			{ opacity: 1, y: 0, stagger: 0.15, ease: 'back.out(1.7)', duration: 1 },
+			'<'
+		)
+	)
+}
+
 // Run anumations
 barba.init({
 	/* 
@@ -22,11 +67,11 @@ barba.init({
                 */
 
 				const done = this.async()
-
 				let current = data.current.container
-				console.log(current)
 
-				gsap.fromTo(current, { opacity: 1 }, { opacity: 0, duration: 1, onComplete: done }) // vidi se, pa nestane 1 --> 0
+				leaveAnimation(current, done)
+
+				// gsap.fromTo(current, { opacity: 1 }, { opacity: 0, duration: 1, onComplete: done }) // vidi se, pa nestane 1 --> 0
 
 				/* 
                     ovo sad nema pojma koliki je duration iako rekosmo, nema pojma da je neka animacija u toku, vec on malte ne istovremene okine leave i enter animaciju. Zato moramo da mu kazemo: hej, ne okidaj enter() dok se leave() ne zavrsi. A to cemo uraditi pomocu async.
@@ -37,7 +82,8 @@ barba.init({
 			enter(data) {
 				const done = this.async()
 				let next = data.next.container
-				gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 1, onComplete: done }) // ne vidi se, pa se pojavi 0 --> 1
+				enterAnimation(next, done)
+				// gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 1, onComplete: done }) // ne vidi se, pa se pojavi 0 --> 1
 			},
 		},
 	],
