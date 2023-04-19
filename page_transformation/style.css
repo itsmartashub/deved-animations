@@ -75,6 +75,7 @@ nav img {
 	right: 15%;
 	bottom: 10%;
 	transform: scale(0.6);
+	z-index: 2;
 }
 /* BUBBLESSS */
 .circle {
@@ -136,4 +137,45 @@ nav img {
 
 .card {
 	padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+	.showcase {
+		padding: 20%;
+		flex-direction: column;
+		justify-content: space-evenly;
+		min-height: 85vh;
+	}
+	.showcase-title {
+		font-size: 1.5rem;
+	}
+	.showcase-subtitle {
+		font-size: 1rem;
+		padding: 2rem 0rem;
+	}
+	.showcase-text {
+		padding-bottom: 0;
+	}
+	.showcase-arrow {
+		right: 0;
+		bottom: 50%;
+	}
+	.image-container {
+		min-height: 30vh;
+		justify-content: center;
+		order: 1; /* menjamo mesta slici i textu. sad prvo ide text, pa slika */
+	}
+	/* .image-container img {
+		width: 80%;
+	} */
+
+	.circle-3 {
+		top: 90%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(3);
+	}
+	.circle-1,
+	.circle-2 {
+		display: none;
+	}
 }
