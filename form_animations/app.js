@@ -124,3 +124,27 @@ checkbox.addEventListener('click', () => {
 		tl2.to('.checkbox-label', { color: '#c5c5c5' }, '<')
 	}
 })
+
+// ANIMATING CHARACTER
+gsap.set('#eye', { transformOrigin: 'center' })
+gsap.fromTo('#eye', { scaleY: 1 }, { scaleY: 0.3, repeat: -1, yoyo: true, repeatDelay: 0.5, ease: 'power2.out' })
+gsap.fromTo('#eyebrow', { y: 0 }, { y: -1, repeat: -1, yoyo: true, repeatDelay: 0.5, ease: 'power2.out' })
+
+// SUBMIT BUTTON
+const button = document.querySelector('button')
+const tl3 = gsap.timeline({ defaults: { duration: 0.75, ease: 'power2.out' } })
+
+button.addEventListener('click', (e) => {
+	e.preventDefault()
+	tl3.to('.contact-right, .contact-left', { y: 30, opacity: 0, pointerEvents: 'none' })
+	tl3.to('form', { scale: 0.8 }, '<')
+	tl3.fromTo('.submitted', { opacity: 0, y: 30 }, { opacity: 1, y: 0 })
+
+	// Hand wave
+	gsap.set('#hand', { transformOrigin: 'left' })
+	gsap.fromTo(
+		'#hand',
+		{ rotation: 0, y: 0 },
+		{ rotation: -10, y: 1, ease: 'elastic.out(3, 0.3)', duration: 2, delay: 1 }
+	)
+})

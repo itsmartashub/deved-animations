@@ -20,6 +20,8 @@ form {
 	border-radius: 2rem;
 	padding: 3rem 5rem;
 	display: flex;
+	gap: 8vw;
+	position: relative;
 }
 .title {
 	color: #6190e8;
@@ -127,4 +129,25 @@ button {
 	cursor: pointer;
 	margin-top: 1rem;
 	align-self: flex-start;
+}
+
+/* CHARACTER */
+#character {
+	position: absolute;
+	transform: scale(0.6) translate(0%, 30%);
+	transform-origin: bottom;
+	bottom: 0;
+	left: 0;
+}
+
+.submitted {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: #777477;
+	font-size: 1rem;
+	pointer-events: none;
+	text-align: center;
+	opacity: 0;
 }
