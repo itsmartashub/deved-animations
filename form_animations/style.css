@@ -67,6 +67,7 @@ form {
 	width: 100%;
 	overflow: visible;
 	opacity: 0.8;
+	/* width: 100%; */
 }
 
 /* CHECKBOX */
@@ -150,4 +151,18 @@ button {
 	pointer-events: none;
 	text-align: center;
 	opacity: 0;
+}
+
+/*  MOBILE */
+@media screen and (max-width: 812px) {
+	form {
+		width: 90vw;
+		min-height: 80vh;
+		flex-direction: column;
+		padding: 8rem 3rem;
+	}
+
+	#character {
+		transform: scale(0.4) translate(0%, 30%);
+	}
 }
