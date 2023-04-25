@@ -50,5 +50,56 @@ form.addEventListener('click', () => {
 				gsap.to(placeholder, { top: 0, left: 0, scale: 1, duration: 0.5, ease: 'power2.out' })
 			}
 		}
+
+		// FORM VALIRATION
+		input.addEventListener('input', (e) => {
+			// Name validation
+			if (e.target.type === 'text') {
+				let inputText = e.target.value.trim()
+
+				if (inputText.length > 2) {
+					colorize('#6391e8', line, placeholder)
+				} else {
+					colorize('#FE8C99', line, placeholder)
+				}
+			}
+
+			// Email validation
+			if (e.target.type === 'email') {
+				let isEmailValid = validateEmail(e.target.value.trim())
+
+				if (isEmailValid) {
+					colorize('#6391e8', line, placeholder)
+				} else {
+					colorize('#FE8C99', line, placeholder)
+				}
+			}
+
+			// Phone validation
+			if (e.target.type === 'tel') {
+				let isPhoneValid = validatePhone(e.target.value.trim())
+
+				if (isPhoneValid) {
+					colorize('#6391e8', line, placeholder)
+				} else {
+					colorize('#FE8C99', line, placeholder)
+				}
+			}
+		})
 	})
 })
+
+function validateEmail(email) {
+	let re = /\S+@\S+\.\S+/
+	return re.test(email)
+}
+function validatePhone(phone) {
+	let re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+	return re.test(phone)
+}
+
+// COLORIZE FN
+function colorize(color, line, placeholder) {
+	gsap.to(line, { stroke: color, duration: 0.75 })
+	gsap.to(placeholder, { color: color, duration: 0.75 })
+}
