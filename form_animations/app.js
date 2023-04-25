@@ -28,7 +28,27 @@ containers.forEach((container) => {
 		if (!input.value) {
 			tl.fromTo(line, { attr: { d: start } }, { attr: { d: end }, ease: 'power2.out', duration: 0.65 })
 
-			tl.to(line, { attr: { d: start }, ease: 'elastic.out(2.5, 0.5)' }, '<50%') // run this anim kada prethodna bude na pola
+			tl.to(line, { attr: { d: start }, ease: 'elastic.out(3, 0.5)' }, '<50%') // run this anim kada prethodna bude na pola
+
+			// Placeholder Shift
+			tl.to(placeholder, { top: -15, left: 0, scale: 0.7, duration: 0.5, ease: 'power2.out' }, '<5%')
+		}
+	})
+})
+
+// Revert back if it is not focused
+form.addEventListener('click', () => {
+	containers.forEach((container) => {
+		const input = container.querySelector('input')
+		const line = container.querySelector('.elastic-line')
+		const placeholder = container.querySelector('.placeholder')
+
+		// ako imamo input selektovan, sve je ok, ali ako nemam, tj ako input nije selektovan, onda revertujemo nazad???
+		if (document.activeElement !== input) {
+			// takodje zelimo da proverimo da li u input postoji value, ako je empty, onda revert back, ako nije onda nemoj
+			if (!input.value) {
+				gsap.to(placeholder, { top: 0, left: 0, scale: 1, duration: 0.5, ease: 'power2.out' })
+			}
 		}
 	})
 })
