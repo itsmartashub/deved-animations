@@ -84,3 +84,35 @@ const tlSplitPin = gsap.timeline({
 		end: '100%',
 	},
 })
+
+// CAROUSEL
+const swatches = document.querySelectorAll('.swatches img')
+const gallery = document.querySelector('.phone-gallery')
+const slides = document.querySelectorAll('.phone-gallery-container')
+
+let currentSwatch = 'blue'
+let topIndex = 2
+
+swatches.forEach((swatch, index) => {
+	const coord = slides[index].getBoundingClientRect().left
+	console.log(slides[index], coord)
+
+	swatch.addEventListener('click', () => {
+		let swatchName = swatch.getAttribute('swatch')
+		let closeUp = document.querySelector(`.${swatchName}`)
+		console.log({ swatchName, closeUp })
+
+		// Check if we are on the same swatch
+		if (currentSwatch === swatchName) return // ako kliknemo na isti swatch, da ne trigeruje ovu dole animaciju
+
+		gsap.set(closeUp, { zIndex: topIndex }) // na swatch koji kliknemo da slika te boje ima najveci index
+		gsap.fromTo(closeUp, { opacity: 0 }, { opacity: 1, duration: 1 })
+
+		// Gallery
+		gsap.to(gallery, { x: -coord, duration: 1, ease: 'back.out(1)' })
+
+		// Increment zIndex
+		topIndex++
+		currentSwatch = swatchName
+	})
+})
