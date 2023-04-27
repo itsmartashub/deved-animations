@@ -160,6 +160,7 @@ a {
 	flex-direction: column;
 	overflow: hidden;
 	flex: 1;
+	background-color: white;
 }
 .phone-gallery {
 	display: flex;

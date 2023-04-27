@@ -27,7 +27,6 @@
 /* Cim krenemo da skolamo na .first-page, sajt se skroluje, ali .first-page ostaje pinovan, tj kao da je fixiran, to postizmeo sa pin: true
 
 Elem, mi sad zelimo i da neki drugi sadrzaj tj section ide preko njega, to postizem sa pinSpacing: false */
-
 const tlIntro = gsap.timeline({
 	scrollTrigger: {
 		trigger: '.first-page',
@@ -60,5 +59,28 @@ const tlHRemove = gsap.timeline({
 		markers: { startColor: 'pink', endColor: 'pink' },
 	},
 })
-
 tlHRemove.to('.highlight', { color: 'rgba(255,255,255, 0.4)', stagger: 1 })
+
+// PAGE #3
+const tlSplit = gsap.timeline({
+	scrollTrigger: {
+		trigger: '.third-page',
+		start: '-25%',
+		end: '30%',
+		scrub: 1,
+	},
+})
+tlSplit.fromTo('.large-phone', { x: '40%' }, { x: '20%' }) // ovo from x je 40% kao i u css-u default
+tlSplit.fromTo('.small-phone', { x: '-40%' }, { x: '-20%' }, '<') // ovo from x je -40% kao i u css-u default. Ovo '<' je da krenu istovremeno
+tlSplit.fromTo('.product-text-left', { x: 50, opacity: 0 }, { x: 0, opacity: 1 }, '<')
+tlSplit.fromTo('.product-text-right', { x: -50, opacity: 0 }, { x: 0, opacity: 1 }, '<')
+
+const tlSplitPin = gsap.timeline({
+	scrollTrigger: {
+		trigger: '.third-page',
+		pin: true,
+		pinSpacing: false,
+		start: '0%',
+		end: '100%',
+	},
+})
