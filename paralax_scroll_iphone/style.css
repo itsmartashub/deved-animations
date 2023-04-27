@@ -281,3 +281,9 @@ a {
 	transform: scale(0.82);
 	border-radius: 2.5rem;
 }
+
+.first-page video,
+.second-page video,
+.fifth-page video {
+	width: 100%;
+}
